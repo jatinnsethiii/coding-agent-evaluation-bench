@@ -1,0 +1,18 @@
+{
+  "candidates": [
+    {
+      "id": "example-buggy-baseline",
+      "task": "api_pagination",
+      "report": "../reports/example-api-pagination-buggy.json",
+      "source": "hand_authored_buggy_baseline",
+      "notes": "Illustrative only; not an AI model result"
+    },
+    {
+      "id": "example-reference",
+      "task": "api_pagination",
+      "report": "../reports/example-api-pagination-reference.json",
+      "source": "hand_authored_reference",
+      "notes": "Illustrative only; not an AI model result"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "results": [
+    {
+      "task": "api_pagination",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}
