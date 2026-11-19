@@ -1,0 +1,12 @@
+{
+  "id": "api_pagination",
+  "title": "Fix exclusive-cursor pagination that silently skips records",
+  "language": "python",
+  "difficulty": "intermediate",
+  "concepts": [
+    "REST APIs",
+    "pagination",
+    "off-by-one",
+    "edge cases"
+  ]
+}

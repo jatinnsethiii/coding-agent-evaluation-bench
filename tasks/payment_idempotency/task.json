@@ -1,0 +1,11 @@
+{
+  "id": "payment_idempotency",
+  "title": "Prevent duplicate charges for concurrent webhook delivery",
+  "language": "python",
+  "difficulty": "intermediate",
+  "concepts": [
+    "idempotency",
+    "concurrency",
+    "thread safety"
+  ]
+}

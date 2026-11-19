@@ -1,0 +1,11 @@
+{
+  "id": "cache_expiration",
+  "title": "Expire cache entries at the exact TTL boundary",
+  "language": "python",
+  "difficulty": "beginner-intermediate",
+  "concepts": [
+    "caching",
+    "time-to-live",
+    "boundary tests"
+  ]
+}

@@ -1,0 +1,1 @@
+"""Local coding-evaluation harness."""

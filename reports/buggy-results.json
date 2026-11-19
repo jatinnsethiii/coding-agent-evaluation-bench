@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "results": [
+    {
+      "task": "api_pagination",
+      "candidate": "/mnt/data/coding-agent-evaluation-bench/tasks/api_pagination/buggy.py",
+      "description": "Fix exclusive-cursor pagination that silently skips records",
+      "status": "failed",
+      "passed": 3,
+      "failed": 3,
+      "errors": 0,
+      "skipped": 0,
+      "score_percent": 50.0,
+      "runtime_seconds": 1.945,
+      "timeout_seconds": 20,
+      "test_output_tail": ".FFF..                                                                   [100%]\n=================================== FAILURES ===================================\n___________________ test_followup_page_has_no_missing_record ___________________\n\n    def test_followup_page_has_no_missing_record():\n        page, cursor = paginate(ITEMS, 2, after=20)\n>       assert [x[\"id\"] for x in page] == [30, 40]\nE       assert [40, 50] == [30, 40]\nE         \nE         At index 0 diff: 40 != 30\nE         Use -v to get more diff\n\ntest_solution.py:15: AssertionError\n________________________ test_nonexistent_cursor_works _________________________\n\n    def test_nonexistent_cursor_works():\n        page, cursor = paginate(ITEMS, 2, after=25)\n>       assert [x[\"id\"] for x in page] == [30, 40]\nE       assert [40, 50] == [30, 40]\nE         \nE         At index 0 diff: 40 != 30\nE         Use -v to get more diff\n\ntest_solution.py:21: AssertionError\n______________________ test_last_page_has_no_next_cursor _______________________\n\n    def test_last_page_has_no_next_cursor():\n        page, cursor = paginate(ITEMS, 2, after=40)\n>       assert [x[\"id\"] for x in page] == [50]\nE       assert [] == [50]\nE         \nE         Right contains one more item: 50\nE         Use -v to get more diff\n\ntest_solution.py:27: AssertionError\n=========================== short test summary info ============================\nFAILED test_solution.py::test_followup_page_has_no_missing_record - assert [4...\nFAILED test_solution.py::test_nonexistent_cursor_works - assert [40, 50] == [...\nFAILED test_solution.py::test_last_page_has_no_next_cursor - assert [] == [50]\n3 failed, 3 passed in 0.07s\n\n"
+    },
+    {
+      "task": "cache_expiration",
+      "candidate": "/mnt/data/coding-agent-evaluation-bench/tasks/cache_expiration/buggy.py",
+      "description": "Expire cache entries at the exact TTL boundary",
+      "status": "failed",
+      "passed": 3,
+      "failed": 2,
+      "errors": 0,
+      "skipped": 0,
+      "score_percent": 60.0,
+      "runtime_seconds": 1.821,
+      "timeout_seconds": 20,
+      "test_output_tail": "..FF.                                                                    [100%]\n=================================== FAILURES ===================================\n______________________ test_expires_at_exact_ttl_boundary ______________________\n\n    def test_expires_at_exact_ttl_boundary():\n        clock = Clock()\n        cache = TTLCache(clock)\n        cache.put(\"a\", \"value\", 10)\n        clock.now = 110.0\n>       assert cache.get(\"a\") is None\nE       AssertionError: assert 'value' is None\nE        +  where 'value' = get('a')\nE        +    where get = <solution.TTLCache object at 0x7f9098c28910>.get\n\ntest_solution.py:28: AssertionError\n_________________ test_non_positive_ttl_is_immediately_expired _________________\n\n    def test_non_positive_ttl_is_immediately_expired():\n        clock = Clock()\n        cache = TTLCache(clock)\n        cache.put(\"zero\", 1, 0)\n        cache.put(\"negative\", 1, -2)\n>       assert cache.get(\"zero\") is None\nE       AssertionError: assert 1 is None\nE        +  where 1 = get('zero')\nE        +    where get = <solution.TTLCache object at 0x7f9098e8d940>.get\n\ntest_solution.py:36: AssertionError\n=========================== short test summary info ============================\nFAILED test_solution.py::test_expires_at_exact_ttl_boundary - AssertionError:...\nFAILED test_solution.py::test_non_positive_ttl_is_immediately_expired - Asser...\n2 failed, 3 passed in 0.06s\n\n"
+    },
+    {
+      "task": "payment_idempotency",
+      "candidate": "/mnt/data/coding-agent-evaluation-bench/tasks/payment_idempotency/buggy.py",
+      "description": "Prevent duplicate charges for concurrent webhook delivery",
+      "status": "failed",
+      "passed": 3,
+      "failed": 1,
+      "errors": 0,
+      "skipped": 0,
+      "score_percent": 75.0,
+      "runtime_seconds": 1.963,
+      "timeout_seconds": 20,
+      "test_output_tail": "...F                                                                     [100%]\n=================================== FAILURES ===================================\n_______________ test_concurrent_redelivery_never_double_charges ________________\n\n    def test_concurrent_redelivery_never_double_charges():\n        charges = []\n        charge_lock = Lock()\n        start = Barrier(10)\n        def slow_charge(amount):\n            sleep(0.03)  # widens read/modify/write race in incorrect implementation\n            with charge_lock:\n                charges.append(amount)\n        p = PaymentProcessor(slow_charge)\n        def worker(_):\n            start.wait(timeout=5)\n            return p.process(\"same-event\", 99)\n        with ThreadPoolExecutor(max_workers=10) as pool:\n            results = list(pool.map(worker, range(10)))\n>       assert results.count(True) == 1\nE       assert 10 == 1\nE        +  where 10 = <built-in method count of list object at 0x7f5e95df97c0>(True)\nE        +    where <built-in method count of list object at 0x7f5e95df97c0> = [True, True, True, True, True, True, ...].count\n\ntest_solution.py:53: AssertionError\n=========================== short test summary info ============================\nFAILED test_solution.py::test_concurrent_redelivery_never_double_charges - as...\n1 failed, 3 passed in 0.09s\n\n"
+    }
+  ],
+  "summary": {
+    "tasks": 3,
+    "passed_tasks": 0,
+    "mean_test_pass_rate": 61.7
+  }
+}

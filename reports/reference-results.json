@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "results": [
+    {
+      "task": "api_pagination",
+      "candidate": "/mnt/data/coding-agent-evaluation-bench/tasks/api_pagination/reference.py",
+      "description": "Fix exclusive-cursor pagination that silently skips records",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "score_percent": 100.0,
+      "runtime_seconds": 1.943,
+      "timeout_seconds": 20,
+      "test_output_tail": "......                                                                   [100%]\n6 passed in 0.03s\n\n"
+    },
+    {
+      "task": "cache_expiration",
+      "candidate": "/mnt/data/coding-agent-evaluation-bench/tasks/cache_expiration/reference.py",
+      "description": "Expire cache entries at the exact TTL boundary",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "score_percent": 100.0,
+      "runtime_seconds": 1.936,
+      "timeout_seconds": 20,
+      "test_output_tail": ".....                                                                    [100%]\n5 passed in 0.03s\n\n"
+    },
+    {
+      "task": "payment_idempotency",
+      "candidate": "/mnt/data/coding-agent-evaluation-bench/tasks/payment_idempotency/reference.py",
+      "description": "Prevent duplicate charges for concurrent webhook delivery",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "score_percent": 100.0,
+      "runtime_seconds": 1.987,
+      "timeout_seconds": 20,
+      "test_output_tail": "....                                                                     [100%]\n4 passed in 0.07s\n\n"
+    }
+  ],
+  "summary": {
+    "tasks": 3,
+    "passed_tasks": 3,
+    "mean_test_pass_rate": 100.0
+  }
+}
